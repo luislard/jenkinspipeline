@@ -1,19 +1,16 @@
 pipeline {
+  /* El agente define en que nodo se correra el pipeline */
   agent any
   stages{
-    stage('Inint'){
-      steps {
-        echo "Testing..."
-      }
-    }
     stage('Build'){
       steps {
-        echo "Building..."
+        sh 'mvn clean package'
       }
-    }
-    stage('Deploy'){
-      steps {
-        echo "Code deployed..."
+      post {
+        success {
+          echo 'Now Archiving...'
+          archiveArtifacts artifacts: '**target/*.war'
+        }
       }
     }
   }
