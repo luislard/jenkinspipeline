@@ -13,5 +13,15 @@ pipeline {
         }
       }
     }
+    stage('Deploy to Staging'){
+      steps {
+        /* Build job defined in Jenkins */
+        /* One benefit on doing this wasy is that the devOps Engineer */
+        /* Will not need access to development repo and this file to  */
+        /* change the IP address or the hosts names of the server that */
+        /* this job gets deployed to */
+        build job: 'Deploy-to-staging'
+      }
+    }
   }
 }
